@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <unistd.h>
+
+void exit_sys(const char *msg);
+
+int main(void)
+{
+    char cwd[4096];
+
+    if (getcwd(cwd, 4096) == NULL)
+        exit_sys("getcwd");
+
+    puts(cwd);
+
+    if (chdir("/usr/include") == -1)
+        exit_sys("getcwd");
+
+    if (getcwd(cwd, 4096) == NULL)
+        exit_sys("getcwd");
+
+    puts(cwd);
+
+    return 0;
+}
+
+void exit_sys(const char *msg)
+{s
+    perror(msg);
+    exit(EXIT_FAILURE);
+}

@@ -1,0 +1,26 @@
+Aynı windows sistemlerindeki gibi sayac 1 azaltılıyor ve arttırılıyor.
+
+POSIX sistemlerinde semaphorelar iki rayüzlü olarak kullanılmaktadır.
+1) Sistem 5 semaphore nesneleri (Eski)
+2) POSIX semaphore nesneleri (Modern)
+Sistemlerde her ikiside bulunmaktadır.
+
+#include <semaphore.h> adlı kütüphanededir.
+
+sem_t g_sem;
+1) sem_init(); ile semaphore initialize edilir.
+    1.p 
+    2.p procesler arası kullanımı belirmektedir.
+    3.p Geri dönüş değeri başarı değerinde 0 başarısız değerinde -1 döner.
+
+if (sem_wait(&g_sem) == -1)   //sayacı 1 azaltıyor. ** sinyal yüzünden sorun yaşamamak için kontrol edilmesi iyi bir yöntemdir.
+    exit_sys("sem_wait");
+
+    //kritik kod
+
+if (sem_post(&g_sem) == -1)   //sayacı 1 arttırır. ** kontrol yapılmasına çok gereken bir durum değildir.
+    exit_sys("sem_post");
+
+sem_destroy(&g_sem);
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
